@@ -20,17 +20,17 @@ pretty decimals sep ds n =
   let decpow  = 10 ^ decimals
       nshift  = n * toFloat decpow
       nshifti = round nshift
-      nshifti' = abs nshifti
-      ni = nshifti' // decpow
-      nf = nshifti' - ni * decpow
+      nshifti_ = abs nshifti
+      ni = nshifti_ // decpow
+      nf = nshifti_ - ni * decpow
       nfs = toString nf
       nflen = String.length nfs
-  in  ( if nshifti < 0
+  in 
+      ( if nshifti < 0
         then prettyInt sep -ni
         else prettyInt sep ni
       )
-      `String.append`
-      String.cons ds (String.padLeft decimals '0' nfs)
+      |> String.append (String.cons ds (String.padLeft decimals '0' nfs))
 
 
 {-| A (de facto?) standard pretty formatting for numbers.
